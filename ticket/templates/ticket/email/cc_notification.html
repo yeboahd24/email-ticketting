@@ -1,0 +1,18 @@
+Hello {{ user.get_full_name|default:user.username }},
+
+You have been CC'd on the following support ticket:
+
+Ticket #{{ ticket.ticket_id }}
+Subject: {{ ticket.subject }}
+Status: {{ ticket.status }}
+
+You can view the full ticket and its history by logging into our support portal. If you need to reply to this ticket, you can do so by replying directly to this email or through the support portal.
+
+To ensure proper tracking, please keep the email thread intact when replying. All responses will be automatically added to the ticket.
+
+You can also view this ticket in our support portal at any time.
+
+If you have any questions, please don't hesitate to contact us at {{ support_email }}.
+
+Best regards,
+Support Team

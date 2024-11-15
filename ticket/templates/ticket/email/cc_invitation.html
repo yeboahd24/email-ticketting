@@ -1,0 +1,22 @@
+Hello,
+
+You have been CC'd on a support ticket (#{{ ticket.ticket_id }}) in our support system. To view the ticket and participate in the discussion, you'll need to activate your account.
+
+Ticket Details:
+Subject: {{ ticket.subject }}
+Created by: {{ ticket.from_email }}
+Status: {{ ticket.status }}
+
+Your Account Details:
+Username: {{ user.username }}
+Temporary Password: {{ temp_password }}
+
+Please click the following link to activate your account:
+{{ activation_link }}
+
+After activation, you can log in to view the ticket and all future tickets where you are CC'd. You can change your password after logging in.
+
+Note: This activation link will expire in 24 hours for security reasons.
+
+Best regards,
+Support Team

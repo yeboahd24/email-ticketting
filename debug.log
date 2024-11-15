@@ -1,0 +1,827 @@
+INFO 2024-11-14 21:44:12,706 autoreload Watching for file changes with StatReloader
+INFO 2024-11-14 21:52:18,493 autoreload /home/backend-mesikahq/Tests/ticketing/ticketing/settings.py changed, reloading.
+INFO 2024-11-14 21:52:19,219 autoreload Watching for file changes with StatReloader
+INFO 2024-11-14 21:52:35,701 autoreload /home/backend-mesikahq/Tests/ticketing/ticket/views.py changed, reloading.
+INFO 2024-11-14 21:52:36,336 autoreload Watching for file changes with StatReloader
+INFO 2024-11-14 21:53:00,877 autoreload /home/backend-mesikahq/Tests/ticketing/ticket/services.py changed, reloading.
+INFO 2024-11-14 21:53:01,440 autoreload Watching for file changes with StatReloader
+INFO 2024-11-14 21:53:32,031 autoreload /home/backend-mesikahq/Tests/ticketing/ticketing/settings.py changed, reloading.
+INFO 2024-11-14 21:53:32,534 autoreload Watching for file changes with StatReloader
+INFO 2024-11-14 21:53:48,961 autoreload /home/backend-mesikahq/Tests/ticketing/ticket/views.py changed, reloading.
+INFO 2024-11-14 21:53:49,460 autoreload Watching for file changes with StatReloader
+INFO 2024-11-14 21:54:04,874 autoreload /home/backend-mesikahq/Tests/ticketing/ticket/services.py changed, reloading.
+INFO 2024-11-14 21:54:05,385 autoreload Watching for file changes with StatReloader
+INFO 2024-11-14 21:55:58,882 autoreload /home/backend-mesikahq/Tests/ticketing/ticketing/settings.py changed, reloading.
+INFO 2024-11-14 21:55:59,401 autoreload Watching for file changes with StatReloader
+ERROR 2024-11-14 22:07:00,889 log Internal Server Error: /webhook/email
+Traceback (most recent call last):
+  File "/home/backend-mesikahq/Tests/ticketing/.venv/lib/python3.11/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/backend-mesikahq/Tests/ticketing/.venv/lib/python3.11/site-packages/django/utils/deprecation.py", line 131, in __call__
+    response = self.process_response(request, response)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/backend-mesikahq/Tests/ticketing/.venv/lib/python3.11/site-packages/django/middleware/common.py", line 108, in process_response
+    return self.response_redirect_class(self.get_full_path_with_slash(request))
+                                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/backend-mesikahq/Tests/ticketing/.venv/lib/python3.11/site-packages/django/middleware/common.py", line 87, in get_full_path_with_slash
+    raise RuntimeError(
+RuntimeError: You called this URL via POST, but the URL doesn't end in a slash and you have APPEND_SLASH set. Django can't redirect to the slash URL while maintaining POST data. Change your form to point to 598a-102-176-75-109.ngrok-free.app/webhook/email/ (note the trailing slash), or set APPEND_SLASH=False in your Django settings.
+INFO 2024-11-14 22:07:42,321 views Received Postmark webhook request
+INFO 2024-11-14 22:07:42,937 views Webhook data: {'RecordType': 'Delivery', 'ServerID': 23, 'MessageStream': 'outbound', 'MessageID': '00000000-0000-0000-0000-000000000000', 'Recipient': 'john@example.com', 'Tag': 'welcome-email', 'DeliveredAt': '2024-11-14T22:07:36Z', 'Details': 'Test delivery webhook details', 'Metadata': {'example': 'value', 'example_2': 'value'}}
+INFO 2024-11-14 22:07:42,937 views Parsed email data: {'from': None, 'subject': None, 'body': None, 'cc': '', 'message_id': '00000000-0000-0000-0000-000000000000', 'in_reply_to': None, 'attachments': [], 'to': ''}
+INFO 2024-11-14 22:07:42,937 services Processing email from: None, subject: None
+INFO 2024-11-14 22:07:42,938 services Creating new ticket
+ERROR 2024-11-14 22:07:42,942 services Error processing email: NOT NULL constraint failed: ticket_ticket.subject
+Traceback (most recent call last):
+  File "/home/backend-mesikahq/Tests/ticketing/.venv/lib/python3.11/site-packages/django/db/backends/utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/backend-mesikahq/Tests/ticketing/.venv/lib/python3.11/site-packages/django/db/backends/sqlite3/base.py", line 354, in execute
+    return super().execute(query, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+sqlite3.IntegrityError: NOT NULL constraint failed: ticket_ticket.subject
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/backend-mesikahq/Tests/ticketing/ticket/services.py", line 72, in process_incoming_email
+    return self._create_new_ticket(
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/backend-mesikahq/Tests/ticketing/ticket/services.py", line 94, in _create_new_ticket
+    ticket = Ticket.objects.create(
+             ^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/backend-mesikahq/Tests/ticketing/.venv/lib/python3.11/site-packages/django/db/models/manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/backend-mesikahq/Tests/ticketing/.venv/lib/python3.11/site-packages/django/db/models/query.py", line 679, in create
+    obj.save(force_insert=True, using=self.db)
+  File "/home/backend-mesikahq/Tests/ticketing/.venv/lib/python3.11/site-packages/django/db/models/base.py", line 891, in save
+    self.save_base(
+  File "/home/backend-mesikahq/Tests/ticketing/.venv/lib/python3.11/site-packages/django/db/models/base.py", line 997, in save_base
+    updated = self._save_table(
+              ^^^^^^^^^^^^^^^^^
+  File "/home/backend-mesikahq/Tests/ticketing/.venv/lib/python3.11/site-packages/django/db/models/base.py", line 1160, in _save_table
+    results = self._do_insert(
+              ^^^^^^^^^^^^^^^^
+  File "/home/backend-mesikahq/Tests/ticketing/.venv/lib/python3.11/site-packages/django/db/models/base.py", line 1201, in _do_insert
+    return manager._insert(
+           ^^^^^^^^^^^^^^^^
+  File "/home/backend-mesikahq/Tests/ticketing/.venv/lib/python3.11/site-packages/django/db/models/manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/backend-mesikahq/Tests/ticketing/.venv/lib/python3.11/site-packages/django/db/models/query.py", line 1847, in _insert
+    return query.get_compiler(using=using).execute_sql(returning_fields)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/backend-mesikahq/Tests/ticketing/.venv/lib/python3.11/site-packages/django/db/models/sql/compiler.py", line 1836, in execute_sql
+    cursor.execute(sql, params)
+  File "/home/backend-mesikahq/Tests/ticketing/.venv/lib/python3.11/site-packages/django/db/backends/utils.py", line 122, in execute
+    return super().execute(sql, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/backend-mesikahq/Tests/ticketing/.venv/lib/python3.11/site-packages/django/db/backends/utils.py", line 79, in execute
+    return self._execute_with_wrappers(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/backend-mesikahq/Tests/ticketing/.venv/lib/python3.11/site-packages/django/db/backends/utils.py", line 92, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/backend-mesikahq/Tests/ticketing/.venv/lib/python3.11/site-packages/django/db/backends/utils.py", line 100, in _execute
+    with self.db.wrap_database_errors:
+  File "/home/backend-mesikahq/Tests/ticketing/.venv/lib/python3.11/site-packages/django/db/utils.py", line 91, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "/home/backend-mesikahq/Tests/ticketing/.venv/lib/python3.11/site-packages/django/db/backends/utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/backend-mesikahq/Tests/ticketing/.venv/lib/python3.11/site-packages/django/db/backends/sqlite3/base.py", line 354, in execute
+    return super().execute(query, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+django.db.utils.IntegrityError: NOT NULL constraint failed: ticket_ticket.subject
+ERROR 2024-11-14 22:07:42,951 views Error processing webhook: NOT NULL constraint failed: ticket_ticket.subject
+Traceback (most recent call last):
+  File "/home/backend-mesikahq/Tests/ticketing/.venv/lib/python3.11/site-packages/django/db/backends/utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/backend-mesikahq/Tests/ticketing/.venv/lib/python3.11/site-packages/django/db/backends/sqlite3/base.py", line 354, in execute
+    return super().execute(query, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+sqlite3.IntegrityError: NOT NULL constraint failed: ticket_ticket.subject
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/backend-mesikahq/Tests/ticketing/ticket/views.py", line 46, in email_webhook
+    ticket = processor.process_incoming_email(email_data)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/backend-mesikahq/Tests/ticketing/ticket/services.py", line 72, in process_incoming_email
+    return self._create_new_ticket(
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/backend-mesikahq/Tests/ticketing/ticket/services.py", line 94, in _create_new_ticket
+    ticket = Ticket.objects.create(
+             ^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/backend-mesikahq/Tests/ticketing/.venv/lib/python3.11/site-packages/django/db/models/manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/backend-mesikahq/Tests/ticketing/.venv/lib/python3.11/site-packages/django/db/models/query.py", line 679, in create
+    obj.save(force_insert=True, using=self.db)
+  File "/home/backend-mesikahq/Tests/ticketing/.venv/lib/python3.11/site-packages/django/db/models/base.py", line 891, in save
+    self.save_base(
+  File "/home/backend-mesikahq/Tests/ticketing/.venv/lib/python3.11/site-packages/django/db/models/base.py", line 997, in save_base
+    updated = self._save_table(
+              ^^^^^^^^^^^^^^^^^
+  File "/home/backend-mesikahq/Tests/ticketing/.venv/lib/python3.11/site-packages/django/db/models/base.py", line 1160, in _save_table
+    results = self._do_insert(
+              ^^^^^^^^^^^^^^^^
+  File "/home/backend-mesikahq/Tests/ticketing/.venv/lib/python3.11/site-packages/django/db/models/base.py", line 1201, in _do_insert
+    return manager._insert(
+           ^^^^^^^^^^^^^^^^
+  File "/home/backend-mesikahq/Tests/ticketing/.venv/lib/python3.11/site-packages/django/db/models/manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/backend-mesikahq/Tests/ticketing/.venv/lib/python3.11/site-packages/django/db/models/query.py", line 1847, in _insert
+    return query.get_compiler(using=using).execute_sql(returning_fields)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/backend-mesikahq/Tests/ticketing/.venv/lib/python3.11/site-packages/django/db/models/sql/compiler.py", line 1836, in execute_sql
+    cursor.execute(sql, params)
+  File "/home/backend-mesikahq/Tests/ticketing/.venv/lib/python3.11/site-packages/django/db/backends/utils.py", line 122, in execute
+    return super().execute(sql, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/backend-mesikahq/Tests/ticketing/.venv/lib/python3.11/site-packages/django/db/backends/utils.py", line 79, in execute
+    return self._execute_with_wrappers(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/backend-mesikahq/Tests/ticketing/.venv/lib/python3.11/site-packages/django/db/backends/utils.py", line 92, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/backend-mesikahq/Tests/ticketing/.venv/lib/python3.11/site-packages/django/db/backends/utils.py", line 100, in _execute
+    with self.db.wrap_database_errors:
+  File "/home/backend-mesikahq/Tests/ticketing/.venv/lib/python3.11/site-packages/django/db/utils.py", line 91, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "/home/backend-mesikahq/Tests/ticketing/.venv/lib/python3.11/site-packages/django/db/backends/utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/backend-mesikahq/Tests/ticketing/.venv/lib/python3.11/site-packages/django/db/backends/sqlite3/base.py", line 354, in execute
+    return super().execute(query, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+django.db.utils.IntegrityError: NOT NULL constraint failed: ticket_ticket.subject
+WARNING 2024-11-14 22:07:42,956 log Bad Request: /webhook/email/
+INFO 2024-11-14 22:10:31,359 views Received Postmark webhook request
+INFO 2024-11-14 22:10:31,712 views Webhook data: {'RecordType': 'Delivery', 'ServerID': 23, 'MessageStream': 'outbound', 'MessageID': '00000000-0000-0000-0000-000000000000', 'Recipient': 'john@example.com', 'Tag': 'welcome-email', 'DeliveredAt': '2024-11-14T22:10:25Z', 'Details': 'Test delivery webhook details', 'Metadata': {'example': 'value', 'example_2': 'value'}}
+INFO 2024-11-14 22:10:31,712 views Parsed email data: {'from': None, 'subject': None, 'body': None, 'cc': '', 'message_id': '00000000-0000-0000-0000-000000000000', 'in_reply_to': None, 'attachments': [], 'to': ''}
+INFO 2024-11-14 22:10:31,712 services Processing email from: None, subject: None
+INFO 2024-11-14 22:10:31,712 services Creating new ticket
+ERROR 2024-11-14 22:10:31,717 services Error processing email: NOT NULL constraint failed: ticket_ticket.subject
+Traceback (most recent call last):
+  File "/home/backend-mesikahq/Tests/ticketing/.venv/lib/python3.11/site-packages/django/db/backends/utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/backend-mesikahq/Tests/ticketing/.venv/lib/python3.11/site-packages/django/db/backends/sqlite3/base.py", line 354, in execute
+    return super().execute(query, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+sqlite3.IntegrityError: NOT NULL constraint failed: ticket_ticket.subject
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/backend-mesikahq/Tests/ticketing/ticket/services.py", line 72, in process_incoming_email
+    return self._create_new_ticket(
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/backend-mesikahq/Tests/ticketing/ticket/services.py", line 94, in _create_new_ticket
+    ticket = Ticket.objects.create(
+             ^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/backend-mesikahq/Tests/ticketing/.venv/lib/python3.11/site-packages/django/db/models/manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/backend-mesikahq/Tests/ticketing/.venv/lib/python3.11/site-packages/django/db/models/query.py", line 679, in create
+    obj.save(force_insert=True, using=self.db)
+  File "/home/backend-mesikahq/Tests/ticketing/.venv/lib/python3.11/site-packages/django/db/models/base.py", line 891, in save
+    self.save_base(
+  File "/home/backend-mesikahq/Tests/ticketing/.venv/lib/python3.11/site-packages/django/db/models/base.py", line 997, in save_base
+    updated = self._save_table(
+              ^^^^^^^^^^^^^^^^^
+  File "/home/backend-mesikahq/Tests/ticketing/.venv/lib/python3.11/site-packages/django/db/models/base.py", line 1160, in _save_table
+    results = self._do_insert(
+              ^^^^^^^^^^^^^^^^
+  File "/home/backend-mesikahq/Tests/ticketing/.venv/lib/python3.11/site-packages/django/db/models/base.py", line 1201, in _do_insert
+    return manager._insert(
+           ^^^^^^^^^^^^^^^^
+  File "/home/backend-mesikahq/Tests/ticketing/.venv/lib/python3.11/site-packages/django/db/models/manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/backend-mesikahq/Tests/ticketing/.venv/lib/python3.11/site-packages/django/db/models/query.py", line 1847, in _insert
+    return query.get_compiler(using=using).execute_sql(returning_fields)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/backend-mesikahq/Tests/ticketing/.venv/lib/python3.11/site-packages/django/db/models/sql/compiler.py", line 1836, in execute_sql
+    cursor.execute(sql, params)
+  File "/home/backend-mesikahq/Tests/ticketing/.venv/lib/python3.11/site-packages/django/db/backends/utils.py", line 122, in execute
+    return super().execute(sql, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/backend-mesikahq/Tests/ticketing/.venv/lib/python3.11/site-packages/django/db/backends/utils.py", line 79, in execute
+    return self._execute_with_wrappers(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/backend-mesikahq/Tests/ticketing/.venv/lib/python3.11/site-packages/django/db/backends/utils.py", line 92, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/backend-mesikahq/Tests/ticketing/.venv/lib/python3.11/site-packages/django/db/backends/utils.py", line 100, in _execute
+    with self.db.wrap_database_errors:
+  File "/home/backend-mesikahq/Tests/ticketing/.venv/lib/python3.11/site-packages/django/db/utils.py", line 91, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "/home/backend-mesikahq/Tests/ticketing/.venv/lib/python3.11/site-packages/django/db/backends/utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/backend-mesikahq/Tests/ticketing/.venv/lib/python3.11/site-packages/django/db/backends/sqlite3/base.py", line 354, in execute
+    return super().execute(query, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+django.db.utils.IntegrityError: NOT NULL constraint failed: ticket_ticket.subject
+ERROR 2024-11-14 22:10:31,723 views Error processing webhook: NOT NULL constraint failed: ticket_ticket.subject
+Traceback (most recent call last):
+  File "/home/backend-mesikahq/Tests/ticketing/.venv/lib/python3.11/site-packages/django/db/backends/utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/backend-mesikahq/Tests/ticketing/.venv/lib/python3.11/site-packages/django/db/backends/sqlite3/base.py", line 354, in execute
+    return super().execute(query, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+sqlite3.IntegrityError: NOT NULL constraint failed: ticket_ticket.subject
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/backend-mesikahq/Tests/ticketing/ticket/views.py", line 46, in email_webhook
+    ticket = processor.process_incoming_email(email_data)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/backend-mesikahq/Tests/ticketing/ticket/services.py", line 72, in process_incoming_email
+    return self._create_new_ticket(
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/backend-mesikahq/Tests/ticketing/ticket/services.py", line 94, in _create_new_ticket
+    ticket = Ticket.objects.create(
+             ^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/backend-mesikahq/Tests/ticketing/.venv/lib/python3.11/site-packages/django/db/models/manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/backend-mesikahq/Tests/ticketing/.venv/lib/python3.11/site-packages/django/db/models/query.py", line 679, in create
+    obj.save(force_insert=True, using=self.db)
+  File "/home/backend-mesikahq/Tests/ticketing/.venv/lib/python3.11/site-packages/django/db/models/base.py", line 891, in save
+    self.save_base(
+  File "/home/backend-mesikahq/Tests/ticketing/.venv/lib/python3.11/site-packages/django/db/models/base.py", line 997, in save_base
+    updated = self._save_table(
+              ^^^^^^^^^^^^^^^^^
+  File "/home/backend-mesikahq/Tests/ticketing/.venv/lib/python3.11/site-packages/django/db/models/base.py", line 1160, in _save_table
+    results = self._do_insert(
+              ^^^^^^^^^^^^^^^^
+  File "/home/backend-mesikahq/Tests/ticketing/.venv/lib/python3.11/site-packages/django/db/models/base.py", line 1201, in _do_insert
+    return manager._insert(
+           ^^^^^^^^^^^^^^^^
+  File "/home/backend-mesikahq/Tests/ticketing/.venv/lib/python3.11/site-packages/django/db/models/manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/backend-mesikahq/Tests/ticketing/.venv/lib/python3.11/site-packages/django/db/models/query.py", line 1847, in _insert
+    return query.get_compiler(using=using).execute_sql(returning_fields)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/backend-mesikahq/Tests/ticketing/.venv/lib/python3.11/site-packages/django/db/models/sql/compiler.py", line 1836, in execute_sql
+    cursor.execute(sql, params)
+  File "/home/backend-mesikahq/Tests/ticketing/.venv/lib/python3.11/site-packages/django/db/backends/utils.py", line 122, in execute
+    return super().execute(sql, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/backend-mesikahq/Tests/ticketing/.venv/lib/python3.11/site-packages/django/db/backends/utils.py", line 79, in execute
+    return self._execute_with_wrappers(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/backend-mesikahq/Tests/ticketing/.venv/lib/python3.11/site-packages/django/db/backends/utils.py", line 92, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/backend-mesikahq/Tests/ticketing/.venv/lib/python3.11/site-packages/django/db/backends/utils.py", line 100, in _execute
+    with self.db.wrap_database_errors:
+  File "/home/backend-mesikahq/Tests/ticketing/.venv/lib/python3.11/site-packages/django/db/utils.py", line 91, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "/home/backend-mesikahq/Tests/ticketing/.venv/lib/python3.11/site-packages/django/db/backends/utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/backend-mesikahq/Tests/ticketing/.venv/lib/python3.11/site-packages/django/db/backends/sqlite3/base.py", line 354, in execute
+    return super().execute(query, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+django.db.utils.IntegrityError: NOT NULL constraint failed: ticket_ticket.subject
+WARNING 2024-11-14 22:10:31,728 log Bad Request: /webhook/email/
+INFO 2024-11-14 22:10:47,228 views Received Postmark webhook request
+INFO 2024-11-14 22:10:47,564 views Webhook data: {'RecordType': 'Delivery', 'ServerID': 23, 'MessageStream': 'outbound', 'MessageID': '00000000-0000-0000-0000-000000000000', 'Recipient': 'john@example.com', 'Tag': 'welcome-email', 'DeliveredAt': '2024-11-14T22:10:46Z', 'Details': 'Test delivery webhook details', 'Metadata': {'example': 'value', 'example_2': 'value'}}
+INFO 2024-11-14 22:10:47,564 views Parsed email data: {'from': None, 'subject': None, 'body': None, 'cc': '', 'message_id': '00000000-0000-0000-0000-000000000000', 'in_reply_to': None, 'attachments': [], 'to': ''}
+INFO 2024-11-14 22:10:47,564 services Processing email from: None, subject: None
+INFO 2024-11-14 22:10:47,564 services Creating new ticket
+ERROR 2024-11-14 22:10:47,571 services Error processing email: NOT NULL constraint failed: ticket_ticket.subject
+Traceback (most recent call last):
+  File "/home/backend-mesikahq/Tests/ticketing/.venv/lib/python3.11/site-packages/django/db/backends/utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/backend-mesikahq/Tests/ticketing/.venv/lib/python3.11/site-packages/django/db/backends/sqlite3/base.py", line 354, in execute
+    return super().execute(query, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+sqlite3.IntegrityError: NOT NULL constraint failed: ticket_ticket.subject
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/backend-mesikahq/Tests/ticketing/ticket/services.py", line 72, in process_incoming_email
+    return self._create_new_ticket(
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/backend-mesikahq/Tests/ticketing/ticket/services.py", line 94, in _create_new_ticket
+    ticket = Ticket.objects.create(
+             ^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/backend-mesikahq/Tests/ticketing/.venv/lib/python3.11/site-packages/django/db/models/manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/backend-mesikahq/Tests/ticketing/.venv/lib/python3.11/site-packages/django/db/models/query.py", line 679, in create
+    obj.save(force_insert=True, using=self.db)
+  File "/home/backend-mesikahq/Tests/ticketing/.venv/lib/python3.11/site-packages/django/db/models/base.py", line 891, in save
+    self.save_base(
+  File "/home/backend-mesikahq/Tests/ticketing/.venv/lib/python3.11/site-packages/django/db/models/base.py", line 997, in save_base
+    updated = self._save_table(
+              ^^^^^^^^^^^^^^^^^
+  File "/home/backend-mesikahq/Tests/ticketing/.venv/lib/python3.11/site-packages/django/db/models/base.py", line 1160, in _save_table
+    results = self._do_insert(
+              ^^^^^^^^^^^^^^^^
+  File "/home/backend-mesikahq/Tests/ticketing/.venv/lib/python3.11/site-packages/django/db/models/base.py", line 1201, in _do_insert
+    return manager._insert(
+           ^^^^^^^^^^^^^^^^
+  File "/home/backend-mesikahq/Tests/ticketing/.venv/lib/python3.11/site-packages/django/db/models/manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/backend-mesikahq/Tests/ticketing/.venv/lib/python3.11/site-packages/django/db/models/query.py", line 1847, in _insert
+    return query.get_compiler(using=using).execute_sql(returning_fields)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/backend-mesikahq/Tests/ticketing/.venv/lib/python3.11/site-packages/django/db/models/sql/compiler.py", line 1836, in execute_sql
+    cursor.execute(sql, params)
+  File "/home/backend-mesikahq/Tests/ticketing/.venv/lib/python3.11/site-packages/django/db/backends/utils.py", line 122, in execute
+    return super().execute(sql, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/backend-mesikahq/Tests/ticketing/.venv/lib/python3.11/site-packages/django/db/backends/utils.py", line 79, in execute
+    return self._execute_with_wrappers(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/backend-mesikahq/Tests/ticketing/.venv/lib/python3.11/site-packages/django/db/backends/utils.py", line 92, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/backend-mesikahq/Tests/ticketing/.venv/lib/python3.11/site-packages/django/db/backends/utils.py", line 100, in _execute
+    with self.db.wrap_database_errors:
+  File "/home/backend-mesikahq/Tests/ticketing/.venv/lib/python3.11/site-packages/django/db/utils.py", line 91, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "/home/backend-mesikahq/Tests/ticketing/.venv/lib/python3.11/site-packages/django/db/backends/utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/backend-mesikahq/Tests/ticketing/.venv/lib/python3.11/site-packages/django/db/backends/sqlite3/base.py", line 354, in execute
+    return super().execute(query, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+django.db.utils.IntegrityError: NOT NULL constraint failed: ticket_ticket.subject
+ERROR 2024-11-14 22:10:47,574 views Error processing webhook: NOT NULL constraint failed: ticket_ticket.subject
+Traceback (most recent call last):
+  File "/home/backend-mesikahq/Tests/ticketing/.venv/lib/python3.11/site-packages/django/db/backends/utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/backend-mesikahq/Tests/ticketing/.venv/lib/python3.11/site-packages/django/db/backends/sqlite3/base.py", line 354, in execute
+    return super().execute(query, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+sqlite3.IntegrityError: NOT NULL constraint failed: ticket_ticket.subject
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/backend-mesikahq/Tests/ticketing/ticket/views.py", line 46, in email_webhook
+    ticket = processor.process_incoming_email(email_data)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/backend-mesikahq/Tests/ticketing/ticket/services.py", line 72, in process_incoming_email
+    return self._create_new_ticket(
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/backend-mesikahq/Tests/ticketing/ticket/services.py", line 94, in _create_new_ticket
+    ticket = Ticket.objects.create(
+             ^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/backend-mesikahq/Tests/ticketing/.venv/lib/python3.11/site-packages/django/db/models/manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/backend-mesikahq/Tests/ticketing/.venv/lib/python3.11/site-packages/django/db/models/query.py", line 679, in create
+    obj.save(force_insert=True, using=self.db)
+  File "/home/backend-mesikahq/Tests/ticketing/.venv/lib/python3.11/site-packages/django/db/models/base.py", line 891, in save
+    self.save_base(
+  File "/home/backend-mesikahq/Tests/ticketing/.venv/lib/python3.11/site-packages/django/db/models/base.py", line 997, in save_base
+    updated = self._save_table(
+              ^^^^^^^^^^^^^^^^^
+  File "/home/backend-mesikahq/Tests/ticketing/.venv/lib/python3.11/site-packages/django/db/models/base.py", line 1160, in _save_table
+    results = self._do_insert(
+              ^^^^^^^^^^^^^^^^
+  File "/home/backend-mesikahq/Tests/ticketing/.venv/lib/python3.11/site-packages/django/db/models/base.py", line 1201, in _do_insert
+    return manager._insert(
+           ^^^^^^^^^^^^^^^^
+  File "/home/backend-mesikahq/Tests/ticketing/.venv/lib/python3.11/site-packages/django/db/models/manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/backend-mesikahq/Tests/ticketing/.venv/lib/python3.11/site-packages/django/db/models/query.py", line 1847, in _insert
+    return query.get_compiler(using=using).execute_sql(returning_fields)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/backend-mesikahq/Tests/ticketing/.venv/lib/python3.11/site-packages/django/db/models/sql/compiler.py", line 1836, in execute_sql
+    cursor.execute(sql, params)
+  File "/home/backend-mesikahq/Tests/ticketing/.venv/lib/python3.11/site-packages/django/db/backends/utils.py", line 122, in execute
+    return super().execute(sql, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/backend-mesikahq/Tests/ticketing/.venv/lib/python3.11/site-packages/django/db/backends/utils.py", line 79, in execute
+    return self._execute_with_wrappers(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/backend-mesikahq/Tests/ticketing/.venv/lib/python3.11/site-packages/django/db/backends/utils.py", line 92, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/backend-mesikahq/Tests/ticketing/.venv/lib/python3.11/site-packages/django/db/backends/utils.py", line 100, in _execute
+    with self.db.wrap_database_errors:
+  File "/home/backend-mesikahq/Tests/ticketing/.venv/lib/python3.11/site-packages/django/db/utils.py", line 91, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "/home/backend-mesikahq/Tests/ticketing/.venv/lib/python3.11/site-packages/django/db/backends/utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/backend-mesikahq/Tests/ticketing/.venv/lib/python3.11/site-packages/django/db/backends/sqlite3/base.py", line 354, in execute
+    return super().execute(query, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+django.db.utils.IntegrityError: NOT NULL constraint failed: ticket_ticket.subject
+WARNING 2024-11-14 22:10:47,578 log Bad Request: /webhook/email/
+WARNING 2024-11-14 22:13:30,149 log Method Not Allowed (GET): /webhook/email/
+INFO 2024-11-14 22:13:39,944 views Received Postmark webhook request
+ERROR 2024-11-14 22:13:39,945 views Failed to parse JSON: Expecting property name enclosed in double quotes: line 5 column 1 (char 122)
+WARNING 2024-11-14 22:13:39,946 log Bad Request: /webhook/email/
+INFO 2024-11-14 22:13:49,767 views Received Postmark webhook request
+INFO 2024-11-14 22:13:49,767 views Webhook data: {'from': 'dyeboah@mesika.com', 'subject': 'Test Support Request', 'body': 'This is a test support request.'}
+INFO 2024-11-14 22:13:49,767 views Parsed email data: {'from': None, 'subject': None, 'body': None, 'cc': '', 'message_id': None, 'in_reply_to': None, 'attachments': [], 'to': ''}
+INFO 2024-11-14 22:13:49,768 services Processing email from: None, subject: None
+INFO 2024-11-14 22:13:49,768 services Creating new ticket
+ERROR 2024-11-14 22:13:49,773 services Error processing email: NOT NULL constraint failed: ticket_ticket.subject
+Traceback (most recent call last):
+  File "/home/backend-mesikahq/Tests/ticketing/.venv/lib/python3.11/site-packages/django/db/backends/utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/backend-mesikahq/Tests/ticketing/.venv/lib/python3.11/site-packages/django/db/backends/sqlite3/base.py", line 354, in execute
+    return super().execute(query, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+sqlite3.IntegrityError: NOT NULL constraint failed: ticket_ticket.subject
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/backend-mesikahq/Tests/ticketing/ticket/services.py", line 72, in process_incoming_email
+    return self._create_new_ticket(
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/backend-mesikahq/Tests/ticketing/ticket/services.py", line 94, in _create_new_ticket
+    ticket = Ticket.objects.create(
+             ^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/backend-mesikahq/Tests/ticketing/.venv/lib/python3.11/site-packages/django/db/models/manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/backend-mesikahq/Tests/ticketing/.venv/lib/python3.11/site-packages/django/db/models/query.py", line 679, in create
+    obj.save(force_insert=True, using=self.db)
+  File "/home/backend-mesikahq/Tests/ticketing/.venv/lib/python3.11/site-packages/django/db/models/base.py", line 891, in save
+    self.save_base(
+  File "/home/backend-mesikahq/Tests/ticketing/.venv/lib/python3.11/site-packages/django/db/models/base.py", line 997, in save_base
+    updated = self._save_table(
+              ^^^^^^^^^^^^^^^^^
+  File "/home/backend-mesikahq/Tests/ticketing/.venv/lib/python3.11/site-packages/django/db/models/base.py", line 1160, in _save_table
+    results = self._do_insert(
+              ^^^^^^^^^^^^^^^^
+  File "/home/backend-mesikahq/Tests/ticketing/.venv/lib/python3.11/site-packages/django/db/models/base.py", line 1201, in _do_insert
+    return manager._insert(
+           ^^^^^^^^^^^^^^^^
+  File "/home/backend-mesikahq/Tests/ticketing/.venv/lib/python3.11/site-packages/django/db/models/manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/backend-mesikahq/Tests/ticketing/.venv/lib/python3.11/site-packages/django/db/models/query.py", line 1847, in _insert
+    return query.get_compiler(using=using).execute_sql(returning_fields)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/backend-mesikahq/Tests/ticketing/.venv/lib/python3.11/site-packages/django/db/models/sql/compiler.py", line 1836, in execute_sql
+    cursor.execute(sql, params)
+  File "/home/backend-mesikahq/Tests/ticketing/.venv/lib/python3.11/site-packages/django/db/backends/utils.py", line 122, in execute
+    return super().execute(sql, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/backend-mesikahq/Tests/ticketing/.venv/lib/python3.11/site-packages/django/db/backends/utils.py", line 79, in execute
+    return self._execute_with_wrappers(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/backend-mesikahq/Tests/ticketing/.venv/lib/python3.11/site-packages/django/db/backends/utils.py", line 92, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/backend-mesikahq/Tests/ticketing/.venv/lib/python3.11/site-packages/django/db/backends/utils.py", line 100, in _execute
+    with self.db.wrap_database_errors:
+  File "/home/backend-mesikahq/Tests/ticketing/.venv/lib/python3.11/site-packages/django/db/utils.py", line 91, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "/home/backend-mesikahq/Tests/ticketing/.venv/lib/python3.11/site-packages/django/db/backends/utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/backend-mesikahq/Tests/ticketing/.venv/lib/python3.11/site-packages/django/db/backends/sqlite3/base.py", line 354, in execute
+    return super().execute(query, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+django.db.utils.IntegrityError: NOT NULL constraint failed: ticket_ticket.subject
+ERROR 2024-11-14 22:13:49,775 views Error processing webhook: NOT NULL constraint failed: ticket_ticket.subject
+Traceback (most recent call last):
+  File "/home/backend-mesikahq/Tests/ticketing/.venv/lib/python3.11/site-packages/django/db/backends/utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/backend-mesikahq/Tests/ticketing/.venv/lib/python3.11/site-packages/django/db/backends/sqlite3/base.py", line 354, in execute
+    return super().execute(query, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+sqlite3.IntegrityError: NOT NULL constraint failed: ticket_ticket.subject
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/backend-mesikahq/Tests/ticketing/ticket/views.py", line 46, in email_webhook
+    ticket = processor.process_incoming_email(email_data)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/backend-mesikahq/Tests/ticketing/ticket/services.py", line 72, in process_incoming_email
+    return self._create_new_ticket(
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/backend-mesikahq/Tests/ticketing/ticket/services.py", line 94, in _create_new_ticket
+    ticket = Ticket.objects.create(
+             ^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/backend-mesikahq/Tests/ticketing/.venv/lib/python3.11/site-packages/django/db/models/manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/backend-mesikahq/Tests/ticketing/.venv/lib/python3.11/site-packages/django/db/models/query.py", line 679, in create
+    obj.save(force_insert=True, using=self.db)
+  File "/home/backend-mesikahq/Tests/ticketing/.venv/lib/python3.11/site-packages/django/db/models/base.py", line 891, in save
+    self.save_base(
+  File "/home/backend-mesikahq/Tests/ticketing/.venv/lib/python3.11/site-packages/django/db/models/base.py", line 997, in save_base
+    updated = self._save_table(
+              ^^^^^^^^^^^^^^^^^
+  File "/home/backend-mesikahq/Tests/ticketing/.venv/lib/python3.11/site-packages/django/db/models/base.py", line 1160, in _save_table
+    results = self._do_insert(
+              ^^^^^^^^^^^^^^^^
+  File "/home/backend-mesikahq/Tests/ticketing/.venv/lib/python3.11/site-packages/django/db/models/base.py", line 1201, in _do_insert
+    return manager._insert(
+           ^^^^^^^^^^^^^^^^
+  File "/home/backend-mesikahq/Tests/ticketing/.venv/lib/python3.11/site-packages/django/db/models/manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/backend-mesikahq/Tests/ticketing/.venv/lib/python3.11/site-packages/django/db/models/query.py", line 1847, in _insert
+    return query.get_compiler(using=using).execute_sql(returning_fields)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/backend-mesikahq/Tests/ticketing/.venv/lib/python3.11/site-packages/django/db/models/sql/compiler.py", line 1836, in execute_sql
+    cursor.execute(sql, params)
+  File "/home/backend-mesikahq/Tests/ticketing/.venv/lib/python3.11/site-packages/django/db/backends/utils.py", line 122, in execute
+    return super().execute(sql, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/backend-mesikahq/Tests/ticketing/.venv/lib/python3.11/site-packages/django/db/backends/utils.py", line 79, in execute
+    return self._execute_with_wrappers(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/backend-mesikahq/Tests/ticketing/.venv/lib/python3.11/site-packages/django/db/backends/utils.py", line 92, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/backend-mesikahq/Tests/ticketing/.venv/lib/python3.11/site-packages/django/db/backends/utils.py", line 100, in _execute
+    with self.db.wrap_database_errors:
+  File "/home/backend-mesikahq/Tests/ticketing/.venv/lib/python3.11/site-packages/django/db/utils.py", line 91, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "/home/backend-mesikahq/Tests/ticketing/.venv/lib/python3.11/site-packages/django/db/backends/utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/backend-mesikahq/Tests/ticketing/.venv/lib/python3.11/site-packages/django/db/backends/sqlite3/base.py", line 354, in execute
+    return super().execute(query, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+django.db.utils.IntegrityError: NOT NULL constraint failed: ticket_ticket.subject
+WARNING 2024-11-14 22:13:49,778 log Bad Request: /webhook/email/
+INFO 2024-11-14 22:16:16,620 autoreload /home/backend-mesikahq/Tests/ticketing/ticket/services.py changed, reloading.
+INFO 2024-11-14 22:16:17,200 autoreload Watching for file changes with StatReloader
+INFO 2024-11-14 22:16:33,675 autoreload /home/backend-mesikahq/Tests/ticketing/ticket/views.py changed, reloading.
+INFO 2024-11-14 22:16:34,303 autoreload Watching for file changes with StatReloader
+INFO 2024-11-14 22:17:44,804 views Received webhook request
+INFO 2024-11-14 22:17:44,805 views Webhook data: {'from': 'dyeboah@mesika.com', 'subject': 'Test Support Request', 'body': 'This is a test support request.'}
+INFO 2024-11-14 22:17:44,805 views Parsed email data: {'from': 'dyeboah@mesika.com', 'subject': 'Test Support Request', 'body': 'This is a test support request.', 'cc': '', 'message_id': 'test-kmG0oKa6Nmq6', 'in_reply_to': None, 'attachments': [], 'to': ''}
+INFO 2024-11-14 22:17:44,805 services Processing email from: dyeboah@mesika.com, subject: Test Support Request
+INFO 2024-11-14 22:17:44,805 services Creating new ticket
+INFO 2024-11-14 22:17:45,155 services Created new ticket: TIC-RJZ72BXJ
+INFO 2024-11-14 22:17:45,156 views Successfully created/updated ticket: TIC-RJZ72BXJ
+WARNING 2024-11-14 22:17:57,386 log Not Found: /favicon.ico
+WARNING 2024-11-14 22:18:21,030 log Not Found: /favicon.ico
+WARNING 2024-11-14 22:18:55,278 log Not Found: /favicon.ico
+WARNING 2024-11-14 22:19:43,083 log Not Found: /favicon.ico
+WARNING 2024-11-14 22:20:59,795 log Not Found: /favicon.ico
+WARNING 2024-11-14 22:21:05,256 log Not Found: /favicon.ico
+WARNING 2024-11-14 22:21:08,601 log Not Found: /favicon.ico
+INFO 2024-11-14 22:22:18,596 autoreload /home/backend-mesikahq/Tests/ticketing/ticket/views.py changed, reloading.
+INFO 2024-11-14 22:22:19,213 autoreload Watching for file changes with StatReloader
+INFO 2024-11-14 22:22:27,574 autoreload /home/backend-mesikahq/Tests/ticketing/ticket/urls.py changed, reloading.
+INFO 2024-11-14 22:22:28,241 autoreload Watching for file changes with StatReloader
+INFO 2024-11-14 22:22:50,764 autoreload /home/backend-mesikahq/Tests/ticketing/ticket/services.py changed, reloading.
+INFO 2024-11-14 22:22:51,359 autoreload Watching for file changes with StatReloader
+INFO 2024-11-14 22:24:29,388 views Received webhook request
+INFO 2024-11-14 22:24:29,388 views Webhook data: {'from': 'yeboahd24@gmail.com', 'subject': 'Test Support ELK Stack', 'body': 'This is a test support request.'}
+INFO 2024-11-14 22:24:29,389 views Parsed email data: {'from': 'yeboahd24@gmail.com', 'subject': 'Test Support ELK Stack', 'body': 'This is a test support request.', 'cc': '', 'message_id': 'test-aqULkh53Pmsn', 'in_reply_to': None, 'attachments': [], 'to': ''}
+INFO 2024-11-14 22:24:29,389 services Processing email from: yeboahd24@gmail.com, subject: Test Support ELK Stack
+INFO 2024-11-14 22:24:29,389 services Creating new ticket
+ERROR 2024-11-14 22:24:32,393 services Error creating ticket: name 'logger' is not defined
+Traceback (most recent call last):
+  File "/home/backend-mesikahq/Tests/ticketing/ticket/services.py", line 322, in _auto_assign_ticket
+    logger.info(f"Automatically assigned ticket {ticket.ticket_id} to {staff_assignment.email}")
+    ^^^^^^
+NameError: name 'logger' is not defined
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/backend-mesikahq/Tests/ticketing/ticket/services.py", line 126, in _create_new_ticket
+    self._auto_assign_ticket(ticket)
+  File "/home/backend-mesikahq/Tests/ticketing/ticket/services.py", line 325, in _auto_assign_ticket
+    logger.error(f"Error in auto-assignment: {str(e)}", exc_info=True)
+    ^^^^^^
+NameError: name 'logger' is not defined
+ERROR 2024-11-14 22:24:32,395 services Error processing email: name 'logger' is not defined
+Traceback (most recent call last):
+  File "/home/backend-mesikahq/Tests/ticketing/ticket/services.py", line 322, in _auto_assign_ticket
+    logger.info(f"Automatically assigned ticket {ticket.ticket_id} to {staff_assignment.email}")
+    ^^^^^^
+NameError: name 'logger' is not defined
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/backend-mesikahq/Tests/ticketing/ticket/services.py", line 73, in process_incoming_email
+    return self._create_new_ticket(
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/backend-mesikahq/Tests/ticketing/ticket/services.py", line 126, in _create_new_ticket
+    self._auto_assign_ticket(ticket)
+  File "/home/backend-mesikahq/Tests/ticketing/ticket/services.py", line 325, in _auto_assign_ticket
+    logger.error(f"Error in auto-assignment: {str(e)}", exc_info=True)
+    ^^^^^^
+NameError: name 'logger' is not defined
+ERROR 2024-11-14 22:24:32,397 views Error processing webhook: name 'logger' is not defined
+Traceback (most recent call last):
+  File "/home/backend-mesikahq/Tests/ticketing/ticket/services.py", line 322, in _auto_assign_ticket
+    logger.info(f"Automatically assigned ticket {ticket.ticket_id} to {staff_assignment.email}")
+    ^^^^^^
+NameError: name 'logger' is not defined
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/backend-mesikahq/Tests/ticketing/ticket/views.py", line 52, in email_webhook
+    ticket = processor.process_incoming_email(email_data)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/backend-mesikahq/Tests/ticketing/ticket/services.py", line 73, in process_incoming_email
+    return self._create_new_ticket(
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/backend-mesikahq/Tests/ticketing/ticket/services.py", line 126, in _create_new_ticket
+    self._auto_assign_ticket(ticket)
+  File "/home/backend-mesikahq/Tests/ticketing/ticket/services.py", line 325, in _auto_assign_ticket
+    logger.error(f"Error in auto-assignment: {str(e)}", exc_info=True)
+    ^^^^^^
+NameError: name 'logger' is not defined
+WARNING 2024-11-14 22:24:32,400 log Bad Request: /webhook/email/
+INFO 2024-11-14 22:25:21,550 autoreload /home/backend-mesikahq/Tests/ticketing/ticket/services.py changed, reloading.
+INFO 2024-11-14 22:25:22,156 autoreload Watching for file changes with StatReloader
+INFO 2024-11-14 22:25:26,839 views Received webhook request
+INFO 2024-11-14 22:25:26,840 views Webhook data: {'from': 'yeboahd24@gmail.com', 'subject': 'Test Support ELK Stack', 'body': 'This is a test support request.'}
+INFO 2024-11-14 22:25:26,840 views Parsed email data: {'from': 'yeboahd24@gmail.com', 'subject': 'Test Support ELK Stack', 'body': 'This is a test support request.', 'cc': '', 'message_id': 'test-GmHRvl1Q9X8v', 'in_reply_to': None, 'attachments': [], 'to': ''}
+INFO 2024-11-14 22:25:26,840 services Processing email from: yeboahd24@gmail.com, subject: Test Support ELK Stack
+INFO 2024-11-14 22:25:26,840 services Creating new ticket
+INFO 2024-11-14 22:25:32,573 services Automatically assigned ticket TIC-FUZRGDO3 to ticket@mesika.org
+INFO 2024-11-14 22:25:32,573 services Created new ticket: TIC-FUZRGDO3
+INFO 2024-11-14 22:25:32,573 views Successfully created/updated ticket: TIC-FUZRGDO3
+WARNING 2024-11-14 22:25:43,353 log Not Found: /favicon.ico
+WARNING 2024-11-14 22:25:50,222 log Not Found: /favicon.ico
+INFO 2024-11-14 22:28:33,742 autoreload /home/backend-mesikahq/Tests/ticketing/ticket/views.py changed, reloading.
+INFO 2024-11-14 22:28:34,340 autoreload Watching for file changes with StatReloader
+INFO 2024-11-14 22:29:37,271 autoreload /home/backend-mesikahq/Tests/ticketing/ticket/views.py changed, reloading.
+INFO 2024-11-14 22:29:37,838 autoreload Watching for file changes with StatReloader
+WARNING 2024-11-14 22:29:54,918 log Not Found: /favicon.ico
+WARNING 2024-11-14 22:30:08,879 log Not Found: /favicon.ico
+INFO 2024-11-14 22:31:42,944 autoreload Watching for file changes with StatReloader
+WARNING 2024-11-14 22:31:48,228 log Not Found: /favicon.ico
+WARNING 2024-11-14 22:31:50,954 log Not Found: /favicon.ico
+WARNING 2024-11-14 22:31:54,961 log Not Found: /favicon.ico
+INFO 2024-11-14 22:33:35,411 autoreload /home/backend-mesikahq/Tests/ticketing/ticket/views.py changed, reloading.
+INFO 2024-11-14 22:33:36,020 autoreload Watching for file changes with StatReloader
+INFO 2024-11-14 22:34:04,607 autoreload /home/backend-mesikahq/Tests/ticketing/ticket/views.py changed, reloading.
+INFO 2024-11-14 22:34:05,218 autoreload Watching for file changes with StatReloader
+WARNING 2024-11-14 22:35:10,980 log Not Found: /favicon.ico
+INFO 2024-11-14 22:35:13,645 views Found 2 staff members
+INFO 2024-11-14 22:35:13,646 views Staff member: ticket@mesika.org (ID: 1)
+INFO 2024-11-14 22:35:13,647 views Staff member: dominic@gmail.com (ID: 2)
+INFO 2024-11-14 22:35:13,647 views Rendering ticket detail with context: {'ticket': <Ticket: [TIC-FUZRGDO3] Test Support ELK Stack>, 'staff_members': <QuerySet [<User: ticket>, <User: dominic>]>}
+WARNING 2024-11-14 22:35:14,097 log Not Found: /favicon.ico
+INFO 2024-11-14 22:35:24,209 views Found 2 staff members
+INFO 2024-11-14 22:35:24,210 views Staff member: ticket@mesika.org (ID: 1)
+INFO 2024-11-14 22:35:24,210 views Staff member: dominic@gmail.com (ID: 2)
+INFO 2024-11-14 22:35:24,210 views Rendering ticket detail with context: {'ticket': <Ticket: [TIC-FUZRGDO3] Test Support ELK Stack>, 'staff_members': <QuerySet [<User: ticket>, <User: dominic>]>}
+WARNING 2024-11-14 22:35:24,619 log Not Found: /favicon.ico
+INFO 2024-11-14 22:37:12,662 autoreload Watching for file changes with StatReloader
+WARNING 2024-11-14 22:37:16,343 log Not Found: /favicon.ico
+WARNING 2024-11-14 22:37:20,306 log Not Found: /favicon.ico
+INFO 2024-11-14 22:37:21,709 views Found 3 staff members
+INFO 2024-11-14 22:37:21,711 views Staff member: ticket@mesika.org (ID: 1)
+INFO 2024-11-14 22:37:21,712 views Staff member: dominic@gmail.com (ID: 2)
+INFO 2024-11-14 22:37:21,712 views Staff member: staff@mesika.org (ID: 3)
+INFO 2024-11-14 22:37:21,712 views Rendering ticket detail with context: {'ticket': <Ticket: [TIC-FUZRGDO3] Test Support ELK Stack>, 'staff_members': <QuerySet [<User: ticket>, <User: dominic>, <User: staff@mesika.org>]>}
+WARNING 2024-11-14 22:37:22,183 log Not Found: /favicon.ico
+WARNING 2024-11-14 22:37:52,902 log Not Found: /favicon.ico
+WARNING 2024-11-14 22:37:56,638 log Not Found: /favicon.ico
+WARNING 2024-11-14 22:38:05,581 log Not Found: /favicon.ico
+WARNING 2024-11-14 22:38:31,571 log Not Found: /favicon.ico
+INFO 2024-11-14 22:38:57,889 views Found 3 staff members
+INFO 2024-11-14 22:38:57,890 views Staff member: ticket@mesika.org (ID: 1)
+INFO 2024-11-14 22:38:57,890 views Staff member: dominic@gmail.com (ID: 2)
+INFO 2024-11-14 22:38:57,891 views Staff member: staff@mesika.org (ID: 3)
+INFO 2024-11-14 22:38:57,891 views Rendering ticket detail with context: {'ticket': <Ticket: [TIC-AHJCSBT2] Test Support ELK Stack>, 'staff_members': <QuerySet [<User: ticket>, <User: dominic>, <User: staff@mesika.org>]>}
+INFO 2024-11-14 22:42:30,954 views Found 3 staff members
+INFO 2024-11-14 22:42:30,956 views Staff member: ticket@mesika.org (ID: 1)
+INFO 2024-11-14 22:42:30,956 views Staff member: dominic@gmail.com (ID: 2)
+INFO 2024-11-14 22:42:30,956 views Staff member: staff@mesika.org (ID: 3)
+INFO 2024-11-14 22:42:30,957 views Rendering ticket detail with context: {'ticket': <Ticket: [TIC-AHJCSBT2] Test Support ELK Stack>, 'staff_members': <QuerySet [<User: ticket>, <User: dominic>, <User: staff@mesika.org>]>}
+WARNING 2024-11-14 22:42:41,019 log Bad Request: /tickets/TIC-AHJCSBT2/assign/
+WARNING 2024-11-14 22:42:41,020 log Bad Request: /tickets/TIC-AHJCSBT2/assign/
+INFO 2024-11-14 22:42:49,631 views Found 3 staff members
+INFO 2024-11-14 22:42:49,633 views Staff member: ticket@mesika.org (ID: 1)
+INFO 2024-11-14 22:42:49,633 views Staff member: dominic@gmail.com (ID: 2)
+INFO 2024-11-14 22:42:49,633 views Staff member: staff@mesika.org (ID: 3)
+INFO 2024-11-14 22:42:49,633 views Rendering ticket detail with context: {'ticket': <Ticket: [TIC-AHJCSBT2] Test Support ELK Stack>, 'staff_members': <QuerySet [<User: ticket>, <User: dominic>, <User: staff@mesika.org>]>}
+WARNING 2024-11-14 22:42:54,400 log Bad Request: /tickets/TIC-AHJCSBT2/assign/
+WARNING 2024-11-14 22:42:54,404 log Bad Request: /tickets/TIC-AHJCSBT2/assign/
+INFO 2024-11-14 22:42:57,572 views Found 3 staff members
+INFO 2024-11-14 22:42:57,574 views Staff member: ticket@mesika.org (ID: 1)
+INFO 2024-11-14 22:42:57,575 views Staff member: dominic@gmail.com (ID: 2)
+INFO 2024-11-14 22:42:57,575 views Staff member: staff@mesika.org (ID: 3)
+INFO 2024-11-14 22:42:57,575 views Rendering ticket detail with context: {'ticket': <Ticket: [TIC-AHJCSBT2] Test Support ELK Stack>, 'staff_members': <QuerySet [<User: ticket>, <User: dominic>, <User: staff@mesika.org>]>}
+INFO 2024-11-14 22:44:05,779 autoreload /home/backend-mesikahq/Tests/ticketing/ticket/views.py changed, reloading.
+INFO 2024-11-14 22:44:06,383 autoreload Watching for file changes with StatReloader
+INFO 2024-11-14 22:47:13,631 views Found 3 staff members
+INFO 2024-11-14 22:47:13,632 views Staff member: ticket@mesika.org (ID: 1)
+INFO 2024-11-14 22:47:13,632 views Staff member: dominic@gmail.com (ID: 2)
+INFO 2024-11-14 22:47:13,632 views Staff member: staff@mesika.org (ID: 3)
+INFO 2024-11-14 22:47:13,632 views Rendering ticket detail with context: {'ticket': <Ticket: [TIC-FUZRGDO3] Test Support ELK Stack>, 'staff_members': <QuerySet [<User: ticket>, <User: dominic>, <User: staff@mesika.org>]>}
+INFO 2024-11-14 22:47:43,201 views Assigning ticket TIC-FUZRGDO3 to staff 3
+INFO 2024-11-14 22:47:43,403 views Successfully assigned ticket TIC-FUZRGDO3 to staff@mesika.org (previous: ticket@mesika.org)
+INFO 2024-11-14 22:59:17,729 autoreload Watching for file changes with StatReloader
+WARNING 2024-11-14 22:59:21,884 log Not Found: /favicon.ico
+INFO 2024-11-14 22:59:24,575 views Found 3 staff members
+INFO 2024-11-14 22:59:24,576 views Staff member: ticket@mesika.org (ID: 1)
+INFO 2024-11-14 22:59:24,577 views Staff member: dominic@gmail.com (ID: 2)
+INFO 2024-11-14 22:59:24,577 views Staff member: staff@mesika.org (ID: 3)
+INFO 2024-11-14 22:59:24,577 views Rendering ticket detail with context: {'ticket': <Ticket: [TIC-AHJCSBT2] Test Support ELK Stack>, 'staff_members': <QuerySet [<User: ticket>, <User: dominic>, <User: staff@mesika.org>]>}
+INFO 2024-11-14 22:59:39,290 views Found 3 staff members
+INFO 2024-11-14 22:59:39,291 views Staff member: ticket@mesika.org (ID: 1)
+INFO 2024-11-14 22:59:39,292 views Staff member: dominic@gmail.com (ID: 2)
+INFO 2024-11-14 22:59:39,292 views Staff member: staff@mesika.org (ID: 3)
+INFO 2024-11-14 22:59:39,292 views Rendering ticket detail with context: {'ticket': <Ticket: [TIC-AHJCSBT2] Test Support ELK Stack>, 'staff_members': <QuerySet [<User: ticket>, <User: dominic>, <User: staff@mesika.org>]>}
+INFO 2024-11-14 22:59:45,842 views Assigning ticket TIC-AHJCSBT2 to staff 1
+INFO 2024-11-14 22:59:45,954 views Successfully assigned ticket TIC-AHJCSBT2 to ticket@mesika.org (previous: ticket@mesika.org)
+INFO 2024-11-14 23:00:27,402 views Found 3 staff members
+INFO 2024-11-14 23:00:27,404 views Staff member: ticket@mesika.org (ID: 1)
+INFO 2024-11-14 23:00:27,404 views Staff member: dominic@gmail.com (ID: 2)
+INFO 2024-11-14 23:00:27,405 views Staff member: staff@mesika.org (ID: 3)
+INFO 2024-11-14 23:00:27,405 views Rendering ticket detail with context: {'ticket': <Ticket: [TIC-AHJCSBT2] Test Support ELK Stack>, 'staff_members': <QuerySet [<User: ticket>, <User: dominic>, <User: staff@mesika.org>]>}
+INFO 2024-11-14 23:00:38,186 views Assigning ticket TIC-AHJCSBT2 to staff 1
+INFO 2024-11-14 23:00:38,480 views Successfully assigned ticket TIC-AHJCSBT2 to ticket@mesika.org (previous: ticket@mesika.org)
+INFO 2024-11-14 23:00:54,302 autoreload /home/backend-mesikahq/Tests/ticketing/ticket/views.py changed, reloading.
+INFO 2024-11-14 23:00:54,806 autoreload Watching for file changes with StatReloader
+INFO 2024-11-14 23:01:06,474 views Found 3 staff members
+INFO 2024-11-14 23:01:06,475 views Staff member: ticket@mesika.org (ID: 1)
+INFO 2024-11-14 23:01:06,475 views Staff member: dominic@gmail.com (ID: 2)
+INFO 2024-11-14 23:01:06,475 views Staff member: staff@mesika.org (ID: 3)
+INFO 2024-11-14 23:01:06,475 views Rendering ticket detail with context: {'ticket': <Ticket: [TIC-AHJCSBT2] Test Support ELK Stack>, 'staff_members': <QuerySet [<User: ticket>, <User: dominic>, <User: staff@mesika.org>]>}
+WARNING 2024-11-14 23:01:06,913 log Not Found: /favicon.ico
+WARNING 2024-11-14 23:01:09,671 log Not Found: /favicon.ico
+INFO 2024-11-14 23:01:16,344 views Found 3 staff members
+INFO 2024-11-14 23:01:16,345 views Staff member: ticket@mesika.org (ID: 1)
+INFO 2024-11-14 23:01:16,345 views Staff member: dominic@gmail.com (ID: 2)
+INFO 2024-11-14 23:01:16,345 views Staff member: staff@mesika.org (ID: 3)
+INFO 2024-11-14 23:01:16,346 views Rendering ticket detail with context: {'ticket': <Ticket: [TIC-RJZ72BXJ] Test Support Request>, 'staff_members': <QuerySet [<User: ticket>, <User: dominic>, <User: staff@mesika.org>]>}
+INFO 2024-11-14 23:02:02,910 views Found 3 staff members
+INFO 2024-11-14 23:02:02,912 views Staff member: ticket@mesika.org (ID: 1)
+INFO 2024-11-14 23:02:02,912 views Staff member: dominic@gmail.com (ID: 2)
+INFO 2024-11-14 23:02:02,912 views Staff member: staff@mesika.org (ID: 3)
+INFO 2024-11-14 23:02:02,912 views Rendering ticket detail with context: {'ticket': <Ticket: [TIC-RJZ72BXJ] Test Support Request>, 'staff_members': <QuerySet [<User: ticket>, <User: dominic>, <User: staff@mesika.org>]>}
+WARNING 2024-11-14 23:02:03,397 log Not Found: /favicon.ico
+WARNING 2024-11-14 23:02:44,166 log Not Found: /favicon.ico
+INFO 2024-11-14 23:02:50,855 views Found 3 staff members
+INFO 2024-11-14 23:02:50,856 views Staff member: ticket@mesika.org (ID: 1)
+INFO 2024-11-14 23:02:50,856 views Staff member: dominic@gmail.com (ID: 2)
+INFO 2024-11-14 23:02:50,856 views Staff member: staff@mesika.org (ID: 3)
+INFO 2024-11-14 23:02:50,856 views Rendering ticket detail with context: {'ticket': <Ticket: [TIC-AHJCSBT2] Test Support ELK Stack>, 'staff_members': <QuerySet [<User: ticket>, <User: dominic>, <User: staff@mesika.org>]>}
+WARNING 2024-11-14 23:02:51,307 log Not Found: /favicon.ico
+WARNING 2024-11-14 23:03:02,638 log Not Found: /favicon.ico
+INFO 2024-11-14 23:03:16,828 autoreload /home/backend-mesikahq/Tests/ticketing/ticket/views.py changed, reloading.
+INFO 2024-11-14 23:03:17,477 autoreload Watching for file changes with StatReloader
+INFO 2024-11-14 23:03:42,896 views Found 3 staff members
+INFO 2024-11-14 23:03:42,897 views Staff member: ticket@mesika.org (ID: 1)
+INFO 2024-11-14 23:03:42,898 views Staff member: dominic@gmail.com (ID: 2)
+INFO 2024-11-14 23:03:42,898 views Staff member: staff@mesika.org (ID: 3)
+INFO 2024-11-14 23:03:42,898 views Rendering ticket detail with context: {'ticket': <Ticket: [TIC-RJZ72BXJ] Test Support Request>, 'staff_members': <QuerySet [<User: ticket>, <User: dominic>, <User: staff@mesika.org>]>}
+WARNING 2024-11-14 23:03:43,425 log Not Found: /favicon.ico
+WARNING 2024-11-14 23:03:58,561 log Not Found: /favicon.ico
+WARNING 2024-11-14 23:04:00,937 log Not Found: /favicon.ico
+INFO 2024-11-14 23:04:03,343 views Found 3 staff members
+INFO 2024-11-14 23:04:03,345 views Staff member: ticket@mesika.org (ID: 1)
+INFO 2024-11-14 23:04:03,345 views Staff member: dominic@gmail.com (ID: 2)
+INFO 2024-11-14 23:04:03,346 views Staff member: staff@mesika.org (ID: 3)
+INFO 2024-11-14 23:04:03,346 views Rendering ticket detail with context: {'ticket': <Ticket: [TIC-RJZ72BXJ] Test Support Request>, 'staff_members': <QuerySet [<User: ticket>, <User: dominic>, <User: staff@mesika.org>]>}
+INFO 2024-11-14 23:06:33,084 autoreload /home/backend-mesikahq/Tests/ticketing/ticket/views.py changed, reloading.
+INFO 2024-11-14 23:06:33,680 autoreload Watching for file changes with StatReloader
+WARNING 2024-11-14 23:08:41,383 log Not Found: /favicon.ico
+INFO 2024-11-14 23:08:44,005 views Found 3 staff members
+INFO 2024-11-14 23:08:44,007 views Staff member: ticket@mesika.org (ID: 1)
+INFO 2024-11-14 23:08:44,007 views Staff member: dominic@gmail.com (ID: 2)
+INFO 2024-11-14 23:08:44,007 views Staff member: staff@mesika.org (ID: 3)
+INFO 2024-11-14 23:08:44,007 views Rendering ticket detail with context: {'ticket': <Ticket: [TIC-FUZRGDO3] Test Support ELK Stack>, 'staff_members': <QuerySet [<User: ticket>, <User: dominic>, <User: staff@mesika.org>]>}
+WARNING 2024-11-14 23:08:44,486 log Not Found: /favicon.ico
+WARNING 2024-11-14 23:08:59,197 log Not Found: /favicon.ico
+INFO 2024-11-14 23:09:01,596 views Found 3 staff members
+INFO 2024-11-14 23:09:01,598 views Staff member: ticket@mesika.org (ID: 1)
+INFO 2024-11-14 23:09:01,599 views Staff member: dominic@gmail.com (ID: 2)
+INFO 2024-11-14 23:09:01,599 views Staff member: staff@mesika.org (ID: 3)
+INFO 2024-11-14 23:09:01,599 views Rendering ticket detail with context: {'ticket': <Ticket: [TIC-RJZ72BXJ] Test Support Request>, 'staff_members': <QuerySet [<User: ticket>, <User: dominic>, <User: staff@mesika.org>]>}
+INFO 2024-11-14 23:09:25,201 views Found 3 staff members
+INFO 2024-11-14 23:09:25,203 views Staff member: ticket@mesika.org (ID: 1)
+INFO 2024-11-14 23:09:25,203 views Staff member: dominic@gmail.com (ID: 2)
+INFO 2024-11-14 23:09:25,203 views Staff member: staff@mesika.org (ID: 3)
+INFO 2024-11-14 23:09:25,203 views Rendering ticket detail with context: {'ticket': <Ticket: [TIC-RJZ72BXJ] Test Support Request>, 'staff_members': <QuerySet [<User: ticket>, <User: dominic>, <User: staff@mesika.org>]>}

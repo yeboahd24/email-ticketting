@@ -1,0 +1,141 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container mx-auto px-4 py-8">
+    <div class="bg-white shadow-lg rounded-lg p-6">
+        <!-- Ticket Header -->
+        <div class="flex justify-between items-center mb-6">
+            <h1 class="text-2xl font-bold">Ticket: {{ ticket.ticket_id }}</h1>
+            <span class="px-4 py-2 rounded-full text-sm font-semibold 
+                {% if ticket.status == 'new' %}bg-blue-100 text-blue-800
+                {% elif ticket.status == 'open' %}bg-green-100 text-green-800
+                {% elif ticket.status == 'pending' %}bg-yellow-100 text-yellow-800
+                {% elif ticket.status == 'resolved' %}bg-purple-100 text-purple-800
+                {% else %}bg-gray-100 text-gray-800{% endif %}">
+                {{ ticket.status|title }}
+            </span>
+        </div>
+
+        <!-- Ticket Details -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+            <div>
+                <h2 class="text-lg font-semibold mb-2">Subject</h2>
+                <p class="text-gray-700">{{ ticket.subject }}</p>
+            </div>
+            <div>
+                <h2 class="text-lg font-semibold mb-2">From</h2>
+                <p class="text-gray-700">{{ ticket.from_email }}</p>
+            </div>
+        </div>
+
+        <!-- Assignment Section -->
+        <div class="mb-6">
+            <h2 class="text-lg font-semibold mb-2">Assignment</h2>
+            <div class="flex items-center space-x-4">
+                <select id="staffSelect" class="form-select rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
+                    <option value="">Select Staff Member</option>
+                    {% for staff in staff_members %}
+                        <option value="{{ staff.id }}" {% if ticket.assigned_to.id == staff.id %}selected{% endif %}>
+                            {{ staff.get_full_name|default:staff.email }}
+                        </option>
+                    {% endfor %}
+                </select>
+                <button onclick="assignTicket()" class="px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
+                    Assign
+                </button>
+            </div>
+        </div>
+
+        <!-- Ticket Content -->
+        <div class="mb-6">
+            <h2 class="text-lg font-semibold mb-2">Content</h2>
+            <div class="bg-gray-50 rounded-lg p-4">
+                <p class="text-gray-700 whitespace-pre-wrap">{{ ticket.body }}</p>
+            </div>
+        </div>
+
+        <!-- Messages -->
+        <div>
+            <h2 class="text-lg font-semibold mb-4">Messages</h2>
+            {% for message in ticket.messages.all %}
+            <div class="border-l-4 border-indigo-500 pl-4 mb-4">
+                <div class="flex justify-between items-start">
+                    <p class="text-sm text-gray-600">From: {{ message.sender }}</p>
+                    <p class="text-sm text-gray-500">{{ message.created_at|date:"M d, Y H:i" }}</p>
+                </div>
+                <div class="mt-2">
+                    <p class="text-gray-700">{{ message.content }}</p>
+                </div>
+                {% if message.attachments.all %}
+                <div class="mt-2">
+                    <p class="text-sm font-semibold text-gray-600">Attachments:</p>
+                    <div class="flex flex-wrap gap-2 mt-1">
+                        {% for attachment in message.attachments.all %}
+                        <a href="{{ attachment.file.url }}" class="inline-flex items-center px-3 py-1 rounded-full text-sm bg-gray-100 text-gray-700 hover:bg-gray-200">
+                            <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13"></path>
+                            </svg>
+                            {{ attachment.filename }}
+                        </a>
+                        {% endfor %}
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+<!-- JavaScript for ticket assignment -->
+<script>
+function assignTicket() {
+    const staffId = document.getElementById('staffSelect').value;
+    if (!staffId) {
+        alert('Please select a staff member');
+        return;
+    }
+
+    const formData = new FormData();
+    formData.append('staff_id', staffId);
+
+    fetch(`/tickets/{{ ticket.ticket_id }}/assign/`, {
+        method: 'POST',
+        body: formData,
+        headers: {
+            'X-CSRFToken': getCookie('csrftoken')
+        }
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.status === 'success') {
+            alert('Ticket assigned successfully');
+            location.reload();
+        } else {
+            alert('Error: ' + data.message);
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('Error assigning ticket');
+    });
+}
+
+// Function to get CSRF token from cookies
+function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        const cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+</script>
+{% endblock %}
